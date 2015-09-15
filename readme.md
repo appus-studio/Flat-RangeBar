@@ -11,7 +11,27 @@ RangeBar is a bar in material design, which is similar to SeekBar widget, that g
 * [Info](#info)
 
 # Demo
-![](https://github.com/roman-voronoy/Appus/blob/master/Splash/image/splash_demo.gif)
+
+##Usage:
+
+![](https://github.com/appus-studio/Appus-RangeBar/blob/master/image/main.gif)
+
+##Custom color:
+
+![](https://github.com/appus-studio/Appus-RangeBar/blob/master/image/color.gif)
+
+##Custom line width:
+
+![](https://github.com/appus-studio/Appus-RangeBar/blob/master/image/line_size.gif)
+
+##Custom pin radius:
+
+![](https://github.com/appus-studio/Appus-RangeBar/blob/master/image/pin_size.gif)
+
+##Custom value interval:
+
+![](https://github.com/appus-studio/Appus-RangeBar/blob/master/image/interval.gif)
+
 
 # Getting Started
 
