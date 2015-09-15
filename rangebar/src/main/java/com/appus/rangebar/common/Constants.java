@@ -36,7 +36,7 @@ public class Constants {
      * */
     public static final float DEFAULT_PIN_WIDTH = 50f;
     public static final int DEFAULT_PIN_COLOR = 0xFFBA68C8;
-    public static final float DEFAULT_PIN_MARGIN = 1f;
+    public static final int DEFAULT_PIN_MARGIN = 10;
 
     /**
      * Constants for bar

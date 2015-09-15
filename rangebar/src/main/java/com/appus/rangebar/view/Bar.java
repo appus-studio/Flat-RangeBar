@@ -21,6 +21,9 @@ public final class Bar {
     private int mTickStartValue= Constants.DEFAULT_TICK_START_VALUE;
     private int mTickEndValue= Constants.DEFAULT_TICK_END_VALUE;
     private float mTickInterval = Constants.DEFAULT_TICK_INTERVAL;
+    private float mPinWidth = Constants.DEFAULT_PIN_WIDTH;
+
+    private float mPinOffset;
 
     private float mSideBarOffset = 0;
     private float mTopBarOffset = 0;
@@ -47,10 +50,12 @@ public final class Bar {
      * @param barColor          Color of the bar
      * @param sideBarOffset     Left/right offset of the bar
      * @param topBarOffset      Top offset of the bar
+     * @param pinWidth
      */
     public Bar(float tickRadius, int tickStartValue, int tickEndValue, float tickInterval, int tickColor, int selectedTickColor,
                float barStrokeWidth, int barColor,
-               float sideBarOffset, float topBarOffset) {
+               float sideBarOffset, float topBarOffset,
+               float pinWidth) {
 
         this.mTickRadius = tickRadius;
         this.mTickStartValue = tickStartValue;
@@ -63,8 +68,14 @@ public final class Bar {
         this.mSideBarOffset = sideBarOffset;
         this.mTopBarOffset = topBarOffset;
 
+        this.mPinWidth = pinWidth;
+
         this.mTickColor = tickColor;
         this.mSelectedTickColor = selectedTickColor;
+
+        mPinOffset = mPinWidth / 2 + mTopBarOffset + mTickRadius;
+
+        mY = mPinOffset;
 
         mBarPaint = new Paint();
         mBarPaint.setColor(barColor);
@@ -84,7 +95,6 @@ public final class Bar {
 
         mStartX = getBarStartX();
         mEndX = getBarEndX() + mTickRadius;
-        mY = mTopBarOffset;
 
         mBarPaint.setColor(mBarColor);
 
@@ -150,8 +160,9 @@ public final class Bar {
          * Drawing of first and last tick. Is used to avoid cropping of ticks
          * */
         mTickPaint.setColor(mTickColor);
-        canvas.drawCircle(mSideBarOffset, mY, mTickRadius, mTickPaint);
-        canvas.drawCircle(getBarWidth() + mSideBarOffset, mY, mTickRadius, mTickPaint);
+        canvas.drawCircle(mTickRadius, mY, mTickRadius, mTickPaint);
+//        canvas.drawCircle(getBarWidth() + mTickRadius, mY, mTickRadius, mTickPaint);
+        canvas.drawCircle(canvas.getWidth() - mTickRadius, mY, mTickRadius, mTickPaint);
     }
 
     /**
@@ -286,5 +297,21 @@ public final class Bar {
 
     public int getSelectedTickColor() {
         return mSelectedTickColor;
+    }
+
+    public void setPinWidth(float width) {
+        this.mPinWidth = width;
+
+        mPinOffset = mPinWidth / 2 + mTopBarOffset + mTickRadius;
+
+        mY = mPinOffset;
+    }
+
+    public float getPinWidth() {
+        return mPinWidth;
+    }
+
+    public float getY() {
+        return mY;
     }
 }

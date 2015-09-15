@@ -33,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements RangeBar.OnRangeB
     private void initViews() {
         mRangeBar = (RangeBar) findViewById(R.id.rb_sample);
 
+        mRangeBar.setThumbColor(getResources().getColor(android.R.color.holo_blue_light));
+        mRangeBar.setPinColor(getResources().getColor(android.R.color.holo_blue_light));
+        mRangeBar.setConnectingLineColor(getResources().getColor(android.R.color.holo_blue_light));
+
         mTickStartValue = (SeekBar) findViewById(R.id.sb_start_value);
         mTickEndValue = (SeekBar) findViewById(R.id.sb_end_value);
         mTickInterval = (SeekBar) findViewById(R.id.sb_tick_interval);

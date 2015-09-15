@@ -21,6 +21,8 @@ public final class Pin extends View {
     private float mPinTextSize;
     private int mPinTextColor;
 
+    private float mSideOffset;
+
     private float mTickRadius;
 
     private Rect mBounds = new Rect();
@@ -36,10 +38,12 @@ public final class Pin extends View {
 
     /**
      * The view is created empty. Use init to set all initial variables.
-     * */
-    public void init(float pinWidth, int pinColor, float tickRadius, int pinTextColor) {
+     */
+    public void init(float pinWidth, int pinColor, float tickRadius, int pinTextColor, float sideOffset) {
         this.mPinColor = pinColor;
         this.mPinWidth = pinWidth;
+
+        this.mSideOffset = sideOffset;
 
         this.mTickRadius = tickRadius;
 
@@ -47,6 +51,8 @@ public final class Pin extends View {
 
         mPinPaint.setColor(mPinColor);
         mPinPaint.setStyle(Paint.Style.FILL);
+
+        mY = mPinWidth / 2;
 
         mPinTextSize = mPinWidth / 4;
         mPinTextPaint.setColor(pinTextColor);
@@ -81,25 +87,32 @@ public final class Pin extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        final float pinRadius =  mPinWidth / 2;
+        if (mX + mTickRadius < mSideOffset + mTickRadius * 2) {
+            mX = mSideOffset * 2;
+        }
+
+        if (mX > canvas.getWidth() - mPinWidth) {
+            mX = canvas.getWidth() - mPinWidth;
+        }
+        final float pinRadius = mPinWidth / 2;
 
         mPinTextPaint.getTextBounds(mPinValue, 0, mPinValue.length(), mBounds);
-
 
         // getting of text's half height for placing it in center of pin
         float halfTextHeight = mY + mBounds.height() / 2;
 
         canvas.drawCircle(mX + mTickRadius, mY, pinRadius, mPinPaint);
         canvas.drawText(mPinValue, mX + mTickRadius, halfTextHeight, mPinTextPaint);
+
     }
 
     /**
      * Responsible for resizing of text depending on its length and pin's width
      *
-     * @param paint paint which is used for drawing of text
-     * @param text text, which should be displayed on pin
-     * @param min min text size
-     * @param max max text size
+     * @param paint    paint which is used for drawing of text
+     * @param text     text, which should be displayed on pin
+     * @param min      min text size
+     * @param max      max text size
      * @param boxWidth width of rectangle for text
      */
     private void calibrateTextSize(Paint paint, String text, float min, float max, float boxWidth) {
@@ -117,11 +130,6 @@ public final class Pin extends View {
     }
 
     @Override
-    public void setY(float y) {
-        mY = y;
-    }
-
-    @Override
     public float getY() {
         return mY;
     }
@@ -133,6 +141,8 @@ public final class Pin extends View {
                 (int) mY);
 
         calibrateTextSize(mPinTextPaint, mPinValue, MIN_TEXT_SIZE, MAX_TEXT_SIZE, mBounds.width());
+
+        mY = pinWidth / 2;
 
         this.mPinWidth = pinWidth;
     }

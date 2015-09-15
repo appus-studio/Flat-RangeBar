@@ -35,6 +35,14 @@ public final class ConnectingLine {
         canvas.drawLine(mLeftX, mY, mRightX, mY, mLinePaint);
     }
 
+    public void setY(float y) {
+        mY = y;
+    }
+
+    public float getY() {
+        return mY;
+    }
+
     public void setLeftX(float leftX) {
         this.mLeftX = leftX;
     }

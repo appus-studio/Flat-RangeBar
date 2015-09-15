@@ -19,6 +19,8 @@ public final class Thumb {
 
     private Pin mPin;
 
+    private int mThumbColor;
+
     private float mX;
     private float mY;
 
@@ -40,7 +42,8 @@ public final class Thumb {
                  float pinWidth, int pinColor, int pinTextColor,
                  int thumbColor,
                  float sideBarOffset, float topBarOffset,
-                 float tickRadius) {
+                 float tickRadius,
+                 float y) {
 
         this.mSideBarOffset = sideBarOffset;
         this.mTopBarOffset = topBarOffset;
@@ -49,15 +52,17 @@ public final class Thumb {
 
         this.mExpandedPinRadius = pinWidth / 2;
 
+        this.mThumbColor = thumbColor;
+
         this.mTickRadius = tickRadius;
 
-        mY = mTopBarOffset;
+        this.mY = y;
 
         mPin = new Pin(context);
-        mPin.init(0, pinColor, mTickRadius, pinTextColor);
+        mPin.init(0, pinColor, mTickRadius, mPinTextColor, sideBarOffset);
         mPin.setY(mExpandedPinRadius);
 
-        mThumbPaint.setColor(thumbColor);
+        mThumbPaint.setColor(mThumbColor);
         mThumbPaint.setStyle(Paint.Style.FILL);
     }
 
@@ -195,5 +200,14 @@ public final class Thumb {
     public void setPinWidth(float width) {
         this.mExpandedPinRadius = width / 2;
         mPin.setY(mExpandedPinRadius);
+    }
+
+    public void setThumbColor(int color) {
+        mThumbColor = color;
+        mThumbPaint.setColor(mThumbColor);
+    }
+
+    public int getThumbColor() {
+        return mThumbColor;
     }
 }

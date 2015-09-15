@@ -232,13 +232,13 @@ public final class RangeBar extends View {
          * */
         switch (measureHeightMode) {
             case MeasureSpec.AT_MOST:
-                height = Math.min(mDefaultViewHeight + getBottomBarOffset(), measureHeight);
+                height = Math.min((int)mPinWidth, measureHeight) + getBottomBarOffset() + (int)mTickRadius;
                 break;
             case MeasureSpec.EXACTLY:
-                height = measureHeight + getBottomBarOffset();
+                height = measureHeight + getBottomBarOffset() + (int)mTickRadius;
                 break;
             default:
-                height = mDefaultViewHeight + getBottomBarOffset();
+                height = (int)mPinWidth + getBottomBarOffset() + (int)mTickRadius;
                 break;
         }
 
@@ -258,22 +258,24 @@ public final class RangeBar extends View {
 
         mBar = new Bar(mTickRadius, mTickStartValue, mTickEndValue, mTickInterval, mTickColor, mConnectingLineColor,
                 mBarStrokeWidth, mBarColor,
-                getSideBarOffset(), getTopBarOffset());
+                getSideBarOffset(), getTopBarOffset(), mPinWidth);
 
         mLeftThumb = new Thumb(getContext(),
                 mPinWidth, mPinColor, mTextColor,
                 mThumbColor,
                 getSideBarOffset(), getTopBarOffset(),
-                mTickRadius);
+                mTickRadius,
+                mBar.getY());
 
 
         mRightThumb = new Thumb(getContext(),
                 mPinWidth, mPinColor, mTextColor,
                 mThumbColor,
                 getSideBarOffset(), getTopBarOffset(),
-                mTickRadius);
+                mTickRadius,
+                mBar.getY());
 
-        mConnectingLine = new ConnectingLine(mConnectingLineColor, mConnectingLineStrokeWidth, getTopBarOffset());
+        mConnectingLine = new ConnectingLine(mConnectingLineColor, mConnectingLineStrokeWidth, mBar.getY());
 
         if (isAfterRestore) {
             invalidate();
@@ -637,14 +639,14 @@ public final class RangeBar extends View {
      * @return Offset which is used for left and right side of RangeBar
      */
     public final float getSideBarOffset() {
-        return mPinWidth / 2;
+        return mTickRadius;
     }
 
     /**
      * @return Offset which is used for top of RangeBar
      */
-    public final float getTopBarOffset() {
-        return mPinWidth + Constants.DEFAULT_PIN_MARGIN;
+    public final int getTopBarOffset() {
+        return Constants.DEFAULT_PIN_MARGIN;
     }
 
     /**
@@ -669,8 +671,7 @@ public final class RangeBar extends View {
 
             mBar.setTickStartValue(value);
 
-            isAfterRestore = true;
-            invalidate();
+            updateView(true);
         }
     }
 
@@ -684,8 +685,7 @@ public final class RangeBar extends View {
 
             mBar.setTickEndValue(value);
 
-            isAfterRestore = true;
-            invalidate();
+            updateView(true);
         }
     }
 
@@ -721,8 +721,7 @@ public final class RangeBar extends View {
             mRestoredLeftIndex = 0;
             mRestoredRightIndex = lastIndex;
 
-            isAfterRestore = true;
-            invalidate();
+            updateView(true);
         }
     }
 
@@ -750,8 +749,14 @@ public final class RangeBar extends View {
         mLeftThumb.setThumbRadius(mTickRadius);
         mRightThumb.setThumbRadius(mTickRadius);
 
-        isAfterRestore = true;
-        invalidate();
+
+        /**
+         * RangeBar should be recreated to calculate again bar and segments width to draw ticks.
+         */
+        isAfterResize = true;
+        createBar();
+
+        updateView(false);
     }
 
     public float getTickRadius() {
@@ -760,11 +765,10 @@ public final class RangeBar extends View {
 
     public void setTickColor(int color) {
         this.mTickColor = color;
-        isAfterRestore = true;
 
         mBar.setTickColor(color);
 
-        invalidate();
+        updateView(true);
     }
 
     public int getTickColor() {
@@ -775,11 +779,14 @@ public final class RangeBar extends View {
         if (width > 0) {
             this.mPinWidth = width;
 
+            mBar.setPinWidth(width);
             mLeftThumb.setPinWidth(width);
             mRightThumb.setPinWidth(width);
+            mLeftThumb.setY(mBar.getY());
+            mRightThumb.setY(mBar.getY());
+            mConnectingLine.setY(mBar.getY());
 
-            isAfterRestore = true;
-            invalidate();
+            updateView(true);
         }
     }
 
@@ -793,8 +800,7 @@ public final class RangeBar extends View {
         mLeftThumb.setPinColor(color);
         mRightThumb.setPinColor(color);
 
-        isAfterRestore = true;
-        invalidate();
+        updateView(true);
     }
 
     public int getPinColor() {
@@ -804,8 +810,8 @@ public final class RangeBar extends View {
     public void setLeftThumbIndex(int index) {
         if (isLeftThumbIndexValid(index)) {
             mRestoredLeftIndex = index;
-            isAfterRestore = true;
-            invalidate();
+
+            updateView(true);
         }
     }
 
@@ -816,8 +822,8 @@ public final class RangeBar extends View {
     public void setRightThumbIndex(int index) {
         if (isRightThumbIndexValid(index)) {
             mRestoredRightIndex = index;
-            isAfterRestore = true;
-            invalidate();
+
+            updateView(true);
         }
     }
 
@@ -839,8 +845,7 @@ public final class RangeBar extends View {
 
         mBar.setBarStrokeWidth(width);
 
-        isAfterRestore = true;
-        invalidate();
+        updateView(true);
     }
 
     public float getBarStrokeWidth() {
@@ -852,8 +857,7 @@ public final class RangeBar extends View {
 
         mBar.setBarColor(color);
 
-        isAfterRestore = true;
-        invalidate();
+        updateView(true);
     }
 
     public int getBarColor() {
@@ -865,8 +869,7 @@ public final class RangeBar extends View {
 
         mConnectingLine.setStrokeWidth(width);
 
-        isAfterRestore = true;
-        invalidate();
+        updateView(true);
     }
 
     public float getConnectingLineStrokeWidth() {
@@ -879,8 +882,7 @@ public final class RangeBar extends View {
         mConnectingLine.setLineColor(color);
         mBar.setSelectedTickColor(color);
 
-        isAfterRestore = true;
-        invalidate();
+        updateView(true);
     }
 
     public float getConnectingLineColor() {
@@ -893,14 +895,30 @@ public final class RangeBar extends View {
         mLeftThumb.setPinTextColor(color);
         mRightThumb.setPinTextColor(color);
 
-        isAfterRestore = true;
-        invalidate();
+        updateView(true);
     }
 
     public int getTextColor() {
         return mTextColor;
     }
 
+    public void setThumbColor(int color) {
+        this.mTextColor = color;
+
+        mLeftThumb.setThumbColor(color);
+        mRightThumb.setThumbColor(color);
+
+        updateView(true);
+    }
+
+    private void updateView(boolean isAfterRestore) {
+        this.isAfterRestore = isAfterRestore;
+        invalidate();
+    }
+
+    public int getThumbColor() {
+        return mThumbColor;
+    }
     /**
      * This interface is called after each change of RangeBar's values.
      */
