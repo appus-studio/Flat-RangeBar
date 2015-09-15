@@ -757,6 +757,7 @@ public final class RangeBar extends View {
         createBar();
 
         updateView(false);
+        requestLayout();
     }
 
     public float getTickRadius() {
@@ -787,6 +788,7 @@ public final class RangeBar extends View {
             mConnectingLine.setY(mBar.getY());
 
             updateView(true);
+            requestLayout();
         }
     }
 

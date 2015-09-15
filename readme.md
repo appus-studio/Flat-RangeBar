@@ -1,4 +1,4 @@
-Appus Range Bar
+RangeBar
 =====================
 
 Made in [![Appus Studio](https://github.com/appus-studio/Appus-Splash/blob/master/image/logo.png)](http://appus.pro)
