@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RangeBar">
+        <attr name="tickStartValue" format="integer"/>
+        <attr name="tickEndValue" format="integer"/>
+        <attr name="tickInterval" format="float"/>
+        <attr name="tickRadius" format="dimension"/>
+        <attr name="tickColor" format="reference|color"/>
+
+        <attr name="pinWidth" format="dimension"/>
+        <attr name="pinColor" format="reference|color"/>
+
+        <attr name="thumbColor" format="reference|color"/>
+        <attr name="thumbLeftIndex" format="integer"/>
+        <attr name="thumbRightIndex" format="integer"/>
+
+        <attr name="barStrokeWidth" format="dimension" />
+        <attr name="barColor" format="reference|color" />
+
+        <attr name="connectingLineStrokeWidth" format="dimension" />
+        <attr name="connectingLineColor" format="reference|color" />
+
+        <attr name="textColor" format="reference|color" />
+    </declare-styleable>
+</resources>

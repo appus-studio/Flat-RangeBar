@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="default_selected_color">#FFBA68C8</color>
+    <color name="default_unselected_color">#FFE0E0E0</color>
+    <color name="default_pin_text_color">#FFFFFFFF</color>
+</resources>
