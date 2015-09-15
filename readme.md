@@ -1,7 +1,9 @@
-Appus Splash
+Appus Range Bar
 =====================
 
-Appus Splash is a tool that allows to easily create nice Splash animation and attach it to your acyivity.
+Made in [![Appus Studio](https://github.com/appus-studio/Appus-Splash/blob/master/image/logo.png)](http://appus.pro)
+
+RangeBar is a bar in material design, which is similar to SeekBar widget, that gives you an opportunity to make a selection of a range of values.
 
 * [Demo](#demo)
 * [Getting Started](#getting-started)
@@ -15,41 +17,41 @@ Appus Splash is a tool that allows to easily create nice Splash animation and at
 
 ##Usage example:
 
+RangeBar can send callbacks for subscribers. For subscribing you need to set a listener:
 
-    public class MainActivity extends Activity {
-
+    yourRangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
         @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+        public void onValueChanged(RangeBar rangeBar, int leftIndex, int rightIndex, String leftValue, String rightValue) {
 
-            .... your onCreate code here ....
+            ... your code here ...
 
-            Splash.Builder splash = new Splash.Builder(this, getActionBar());
-            splash.perform();
         }
-    }
+    });
 
 # Customization
 
-Set custom color of background:
+##Tick attributes:
+tickStartValue - integer
+tickEndValue - integer
+tickInterval - float
+tickRadius - dimension
+tickColor - color
 
+##Pin attributes:
+pinWidth - dimension
+pinColor - color
 
-        splash.setBackgroundColor(getResources().getColor(R.color.blue));
+##Thumb attributes:
+thumbColor - color
+thumbLeftIndex - integer
+thumbRightIndex - integer
 
-Set custom image for background:
+##Connecting line attributes:
+connectingLineStrokeWidth - dimension
+connectingLineColor - color
 
-
-        splash.setBackgroundImage(getResources().getDrawable(R.drawable.default_splash_image));
-
-Set custom image for splash:
-
-
-        splash.setSplashImage(getResources().getDrawable(R.drawable.default_splash_image));
-
-Set custom color of splash image:
-
-
-        splash.setSplashImageColor(getResources().getColor(R.color.blue));
+##Text attributes:
+textColor - color
 
 
 # Info

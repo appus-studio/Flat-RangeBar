@@ -150,8 +150,8 @@ public final class Bar {
          * Drawing of first and last tick. Is used to avoid cropping of ticks
          * */
         mTickPaint.setColor(mTickColor);
-        canvas.drawCircle(mTickRadius, mY, mTickRadius, mTickPaint);
-        canvas.drawCircle(getBarWidth() + mTickRadius, mY, mTickRadius, mTickPaint);
+        canvas.drawCircle(mSideBarOffset, mY, mTickRadius, mTickPaint);
+        canvas.drawCircle(getBarWidth() + mSideBarOffset, mY, mTickRadius, mTickPaint);
     }
 
     /**

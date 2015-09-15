@@ -54,7 +54,7 @@ public final class Thumb {
         mY = mTopBarOffset;
 
         mPin = new Pin(context);
-        mPin.init(0, pinColor, mTickRadius, pinTextColor, sideBarOffset);
+        mPin.init(0, pinColor, mTickRadius, pinTextColor);
         mPin.setY(mExpandedPinRadius);
 
         mThumbPaint.setColor(thumbColor);

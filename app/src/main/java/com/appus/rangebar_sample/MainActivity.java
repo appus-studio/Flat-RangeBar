@@ -41,10 +41,6 @@ public class MainActivity extends AppCompatActivity implements RangeBar.OnRangeB
         mConnectingLineStrokeWidth = (SeekBar) findViewById(R.id.sb_connecting_line_stroke_width);
         mPinWidth = (SeekBar) findViewById(R.id.sb_pin_width);
         initListeners();
-
-        mRangeBar.setTickRadius(20);
-        mRangeBar.setTickStartValue(1);
-        mRangeBar.setTickEndValue(15);
     }
 
     private void initListeners() {

@@ -637,7 +637,7 @@ public final class RangeBar extends View {
      * @return Offset which is used for left and right side of RangeBar
      */
     public final float getSideBarOffset() {
-        return mTickRadius;
+        return mPinWidth / 2;
     }
 
     /**

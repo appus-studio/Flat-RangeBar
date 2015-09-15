@@ -21,8 +21,6 @@ public final class Pin extends View {
     private float mPinTextSize;
     private int mPinTextColor;
 
-    private float mSideOffset;
-
     private float mTickRadius;
 
     private Rect mBounds = new Rect();
@@ -39,11 +37,9 @@ public final class Pin extends View {
     /**
      * The view is created empty. Use init to set all initial variables.
      * */
-    public void init(float pinWidth, int pinColor, float tickRadius, int pinTextColor, float sideOffset) {
+    public void init(float pinWidth, int pinColor, float tickRadius, int pinTextColor) {
         this.mPinColor = pinColor;
         this.mPinWidth = pinWidth;
-
-        this.mSideOffset = sideOffset;
 
         this.mTickRadius = tickRadius;
 
@@ -59,7 +55,7 @@ public final class Pin extends View {
     }
 
     @Override
-      protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width;
         int height;
 
@@ -85,24 +81,16 @@ public final class Pin extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (mX + mTickRadius < mSideOffset + mTickRadius * 2 ) {
-            mX = mSideOffset * 2;
-        }
+        final float pinRadius =  mPinWidth / 2;
 
-        if (mX > canvas.getWidth() - mPinWidth) {
-            mX = canvas.getWidth() - mPinWidth;
-        }
-            final float pinRadius = mPinWidth / 2;
-
-            mPinTextPaint.getTextBounds(mPinValue, 0, mPinValue.length(), mBounds);
+        mPinTextPaint.getTextBounds(mPinValue, 0, mPinValue.length(), mBounds);
 
 
-            // getting of text's half height for placing it in center of pin
-            float halfTextHeight = mY + mBounds.height() / 2;
+        // getting of text's half height for placing it in center of pin
+        float halfTextHeight = mY + mBounds.height() / 2;
 
-            canvas.drawCircle(mX + mTickRadius, mY, pinRadius, mPinPaint);
-            canvas.drawText(mPinValue, mX + mTickRadius, halfTextHeight, mPinTextPaint);
-
+        canvas.drawCircle(mX + mTickRadius, mY, pinRadius, mPinPaint);
+        canvas.drawText(mPinValue, mX + mTickRadius, halfTextHeight, mPinTextPaint);
     }
 
     /**
