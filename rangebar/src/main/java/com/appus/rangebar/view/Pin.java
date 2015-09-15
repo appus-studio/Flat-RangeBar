@@ -87,12 +87,12 @@ public final class Pin extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (mX + mTickRadius < mSideOffset + mTickRadius * 2) {
-            mX = mSideOffset * 2;
+        if (mX < mPinWidth / 2) {
+            mX = mPinWidth / 2;
         }
 
-        if (mX > canvas.getWidth() - mPinWidth) {
-            mX = canvas.getWidth() - mPinWidth;
+        if (mX > canvas.getWidth() - mPinWidth / 2 - mSideOffset) {
+            mX = canvas.getWidth() - mPinWidth / 2 - mSideOffset;
         }
         final float pinRadius = mPinWidth / 2;
 

@@ -231,14 +231,11 @@ public final class RangeBar extends View {
          * Should be as small as possible.
          * */
         switch (measureHeightMode) {
-            case MeasureSpec.AT_MOST:
-                height = Math.min((int)mPinWidth, measureHeight) + getBottomBarOffset() + (int)mTickRadius;
-                break;
-            case MeasureSpec.EXACTLY:
-                height = measureHeight + getBottomBarOffset() + (int)mTickRadius;
-                break;
             default:
-                height = (int)mPinWidth + getBottomBarOffset() + (int)mTickRadius;
+                int pinRadius = (int) mPinWidth / 2;
+                int tickWidth = (int) mTickRadius * 2;
+
+                height = measureHeight + getBottomBarOffset() + pinRadius + tickWidth;
                 break;
         }
 
