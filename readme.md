@@ -35,6 +35,23 @@ RangeBar is a bar in material design, which is similar to SeekBar widget, that g
 
 # Getting Started
 
+
+##Setup:
+
+1. Add repository and dependence to main project's build.gradle:
+
+        repositories {
+                maven {
+                        url 'https://dl.bintray.com/roman-voronoy/maven/'
+                }
+        }
+        
+        dependencies {
+                compile 'pro.appus:rangebar:1.0.0'
+        }
+        
+2. Done!
+
 ##Usage example:
 
 RangeBar can send callbacks for subscribers. For subscribing you need to set a listener:
