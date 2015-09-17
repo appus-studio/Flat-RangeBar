@@ -38,17 +38,20 @@ RangeBar is a bar in material design, which is similar to SeekBar widget, that g
 
 ##Setup:
 
-1. Add repository and dependence to main project's build.gradle:
+1. If you use JCenter repository in your project, just add dependence to main build.gradle:
 
+        dependencies {
+                compile 'pro.appus:rangebar:1.0.0'
+        }
+   
+   Else add repository to the same build.gradle:
+   
         repositories {
                 maven {
                         url 'https://dl.bintray.com/roman-voronoy/maven/'
                 }
         }
         
-        dependencies {
-                compile 'pro.appus:rangebar:1.0.0'
-        }
         
 2. Done!
 
